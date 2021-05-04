@@ -67,6 +67,9 @@ public class Curso {
 			e.printStackTrace();
 		}
 	}
+	public Integer getCreditos() {
+		return this.creditos;
+	}
 
 
 }
