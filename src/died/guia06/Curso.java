@@ -1,9 +1,10 @@
 package died.guia06;
-
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
-
 import died.guia06.util.Registro;
 
 /**
@@ -14,7 +15,7 @@ import died.guia06.util.Registro;
  * @author marti
  *
  */
-public class Curso {
+public class Curso implements {
 
 	private Integer id;
 	private String nombre;
@@ -47,12 +48,20 @@ public class Curso {
 	 * @return
 	 */
 	public Boolean inscribir(Alumno a) {
+		if (this.inscriptos.size()==cupo && a.creditosObtenidos()< (int) this.creditosRequeridos && a.tresCursosCL(this.cicloLectivo)) return false;
+		else {
 		try {
+			
+			this.inscriptos.add(a);
+			a.inscripcionAceptada(this);
 		log.registrar(this, "inscribir ",a.toString());
+		return true;
 		}catch (IOException e) {
-			System.out.println(e.getMessage());
+			System.out.println(e.getMessage()+"La inscripcion se realio con exito pero no se pudo guardar en el archivo");
+			e.printStackTrace();
+			return false;
 		}
-		return false;
+		}
 	}
 	
 	
@@ -61,7 +70,9 @@ public class Curso {
 	 */
 	public void imprimirInscriptos() {
 		try {
-		log.registrar(this, "imprimir listado",this.inscriptos.size()+ " registros ");
+			Collections.sort(this.inscriptos,new ComparadorAlumnosNombre());
+			System.out.println(this.inscriptos.toString());
+		//log.registrar(this, "imprimir listado",this.inscriptos.size()+ " registros ");
 		}catch (IOException e) {
 			System.out.println(e.getMessage());
 			e.printStackTrace();
@@ -69,6 +80,9 @@ public class Curso {
 	}
 	public Integer getCreditos() {
 		return this.creditos;
+	}
+	public int getCL() {
+		return this.cicloLectivo;
 	}
 
 

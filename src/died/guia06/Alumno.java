@@ -42,5 +42,18 @@ public class Alumno implements Comparable<Alumno>{
 		return this.nombre;
 	}
 	
+	public boolean tresCursosCL(int ciclec) {
+		int en_este_CL=0;
+		for (Curso C: this.cursando) {
+			if(C.getCL() == ciclec) en_este_CL++;
+		}
+		if(en_este_CL ==3)return true;
+		else return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Alumno [nombre=" + nombre + ", nroLibreta=" + nroLibreta + "]";
+	}
 
 }
