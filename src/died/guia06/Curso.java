@@ -47,7 +47,7 @@ public class Curso{
 	 * @param a
 	 * @return
 	 */
-	public Boolean inscribir(Alumno a) {
+	/*public Boolean inscribir(Alumno a) {
 		if (this.inscriptos.size()==cupo || a.creditosObtenidos() < (int) this.creditosRequeridos || a.tresCursosCL(this.cicloLectivo)) return false;
 		else {
 		try {
@@ -62,7 +62,7 @@ public class Curso{
 			return false;
 		}
 		}
-	}
+	}*/
 	
 	
 	/**
@@ -99,6 +99,17 @@ public class Curso{
 	}
 	public void eximirAlumno(Alumno a) {
 		this.inscriptos.remove(a);
+	}
+	public void inscribir(Alumno a) throws creditosInsuficientesException, cupoLlenoException, RegistroAuditoriaException {
+		if (this.inscriptos.size()==cupo)throw new creditosInsuficientesException("El alumno no cuenta con creditos suficientes para inscribirse a este curso");
+		if ( a.creditosObtenidos() < (int) this.creditosRequeridos)throw new cupoLlenoException("No hay mas cupos en este curso");
+		try {
+			this.inscriptos.add(a);
+			a.inscripcionAceptada(this);
+		log.registrar(this, "inscribir ",a.toString());
+		}catch (IOException e) {
+			throw new RegistroAuditoriaException();
+		}
 	}
 
 
