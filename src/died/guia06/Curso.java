@@ -15,7 +15,7 @@ import died.guia06.util.Registro;
  * @author marti
  *
  */
-public class Curso implements {
+public class Curso{
 
 	private Integer id;
 	private String nombre;
@@ -48,7 +48,7 @@ public class Curso implements {
 	 * @return
 	 */
 	public Boolean inscribir(Alumno a) {
-		if (this.inscriptos.size()==cupo && a.creditosObtenidos()< (int) this.creditosRequeridos && a.tresCursosCL(this.cicloLectivo)) return false;
+		if (this.inscriptos.size()==cupo || a.creditosObtenidos() < (int) this.creditosRequeridos || a.tresCursosCL(this.cicloLectivo)) return false;
 		else {
 		try {
 			
@@ -72,17 +72,33 @@ public class Curso implements {
 		try {
 			Collections.sort(this.inscriptos,new ComparadorAlumnosNombre());
 			System.out.println(this.inscriptos.toString());
-		//log.registrar(this, "imprimir listado",this.inscriptos.size()+ " registros ");
+		log.registrar(this, "imprimir listado",this.inscriptos.size()+ " registros ");
 		}catch (IOException e) {
 			System.out.println(e.getMessage());
 			e.printStackTrace();
 		}
 	}
+	public Curso(Integer id, String nombre, Integer cicloLectivo, Integer cupo,Integer creditos, Integer creditosRequeridos) {
+		super();
+		this.inscriptos = new ArrayList<Alumno>();
+		this.log = new Registro();
+		this.id = id;
+		this.nombre = nombre;
+		this.cicloLectivo = cicloLectivo;
+		this.cupo = cupo;
+		this.creditos=creditos;
+		this.creditosRequeridos = creditosRequeridos;
+	}
+
+
 	public Integer getCreditos() {
 		return this.creditos;
 	}
 	public int getCL() {
 		return this.cicloLectivo;
+	}
+	public void eximirAlumno(Alumno a) {
+		this.inscriptos.remove(a);
 	}
 
 
