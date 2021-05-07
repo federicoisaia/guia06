@@ -10,22 +10,33 @@ public class App {
 	Alumno a5= new Alumno("fda defe", 31421);
 	Alumno a6= new Alumno("jyuj jhlll", 46489);
 	//Integer id, String nombre, Integer cicloLectivo, Integer cupo,Integer creditos, Integer creditosRequeridos
-	Curso c1= new Curso(1,"DIED",3,30,5,0);
+	Curso c1= new Curso(1,"DIED",3,3,5,0);
 	Curso c2= new Curso(2,"GDD",3,30,5, 10);
 	Curso c3= new Curso(3,"DdS",3,40,5, 10);
 	
+	try {
+	
 	c1.inscribir(a6);
-	c1.inscribir(a4);
 	c1.inscribir(a1);
-	c1.inscribir(a1);
-	c1.inscribir(a1);
+	//c1.inscribir(a1);
+	//c1.inscribir(a1);
+	//c1.inscribir(a1);
 	System.out.println(a1.tresCursosCL(c1.getCL()));
 	c1.imprimirInscriptos();
-	System.out.println(c1.inscribir(a1));
-	//a1.aprobar(c1);
+	a1.aprobar(c1);
 
 	c1.imprimirInscriptos();
 	System.out.println(a1.creditosObtenidos());
+	}
+	catch (cupoLlenoException e) {
+		System.out.println(e.getMessage());
+	}
+	catch (creditosInsuficientesException e) {
+		System.out.println(e.getMessage());
+	}
+	catch (RegistroAuditoriaException e) {
+		System.out.println(e.getMessage());
+	}
 	
 	
 	}

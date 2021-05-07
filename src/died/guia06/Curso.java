@@ -101,8 +101,8 @@ public class Curso{
 		this.inscriptos.remove(a);
 	}
 	public void inscribir(Alumno a) throws creditosInsuficientesException, cupoLlenoException, RegistroAuditoriaException {
-		if (this.inscriptos.size()==cupo)throw new creditosInsuficientesException("El alumno no cuenta con creditos suficientes para inscribirse a este curso");
-		if ( a.creditosObtenidos() < (int) this.creditosRequeridos)throw new cupoLlenoException("No hay mas cupos en este curso");
+		if (this.inscriptos.size()==cupo)throw new creditosInsuficientesException("No hay mas cupos en este curso");
+		if ( a.creditosObtenidos() < (int) this.creditosRequeridos)throw new cupoLlenoException("El alumno no cuenta con creditos suficientes para inscribirse a este curso");
 		try {
 			this.inscriptos.add(a);
 			a.inscripcionAceptada(this);
